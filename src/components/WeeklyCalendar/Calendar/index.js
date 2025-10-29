@@ -3,6 +3,10 @@ import CalendarHeader from './Header';
 import EventCard from './EventCard';
 
 const Calendar = ({ weekDays, today, getEventsForDay }) => {
+    const handleEventClick = (event) => {
+        console.log('Event clicked:', event);
+    };
+
     return (
         <div className="space-y-4">
             {/* Days Header */}
@@ -17,9 +21,11 @@ const Calendar = ({ weekDays, today, getEventsForDay }) => {
                         return (
                             <div key={idx} className="min-h-[200px]">
                                 {dayEvents.length > 0 ? (
-                                    <div className="space-y-3 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
+                                    <div className="space-y-3">
                                         {dayEvents.map(event => (
-                                            <EventCard key={event.id} event={event} />
+                                            <div key={event.id} onClick={handleEventClick} className="mb-2">
+                                                <EventCard event={event} />
+                                            </div>
                                         ))}
                                     </div>
                                 ) : (

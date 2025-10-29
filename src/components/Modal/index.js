@@ -15,7 +15,7 @@ const Dialog = ({ event, setSelectedEvent }) => {
                     {/* Modal Header */}
                     <div className={`bg-gradient-to-br ${event.color} p-8 rounded-t-3xl text-white`}>
                         <div className="flex justify-between items-start mb-4">
-                            <h2 className="text-2xl font-bold">{event.title}</h2>
+                            <h2 className="text-xl font-bold">{event.title}</h2>
                             <button 
                                 onClick={() => setSelectedEvent(null)}
                                 className="p-2 hover:bg-white/20 rounded-full transition-all duration-300 hover:rotate-90"
@@ -46,9 +46,9 @@ const Dialog = ({ event, setSelectedEvent }) => {
                                     <Clock className="w-6 h-6 text-white" />
                                 </div>
                                 <div>
-                                    <div className="text-sm text-gray-500 font-semibold">Time</div>
+                                    <div className="text-sm text-gray-500 font-semibold">เวลา</div>
                                     <div className="text-lg font-bold text-gray-800">{event.time}</div>
-                                    <div className="text-sm text-gray-600">{event.duration}</div>
+                                    {/* <div className="text-sm text-gray-600">{event.duration}</div> */}
                                 </div>
                             </div>
 
@@ -57,18 +57,18 @@ const Dialog = ({ event, setSelectedEvent }) => {
                                     <MapPin className="w-6 h-6 text-white" />
                                 </div>
                                 <div>
-                                    <div className="text-sm text-gray-500 font-semibold">Location</div>
-                                    <div className="text-lg font-bold text-gray-800">{event.location}</div>
+                                    <div className="text-sm text-gray-500 font-semibold">สถานที่</div>
+                                    <div className="text-sm font-bold text-gray-800">{event.location}</div>
                                 </div>
                             </div>
                         </div>
                         <div className="grid grid-cols-1 gap-6">
-                            <div className="flex items-start gap-4 w-full border">
+                            <div className="flex items-start gap-4 w-full">
                                 <div className={`bg-gradient-to-br ${event.color} p-3 rounded-xl`}>
                                     <Users className="w-6 h-6 text-white" />
                                 </div>
                                 <div>
-                                    <div className="text-sm text-gray-500 font-semibold">Attendees</div>
+                                    <div className="text-sm text-gray-500 font-semibold">ผู้เข้าร่วม</div>
                                     <div className="text-lg font-bold text-gray-800">{event.people} ราย <span className="text-sm font-thin">({event.attendees})</span></div>
                                 </div>
                             </div>

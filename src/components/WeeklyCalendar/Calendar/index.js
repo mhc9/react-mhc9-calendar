@@ -17,7 +17,7 @@ const Calendar = ({ weekDays, today, getEventsForDay }) => {
                         return (
                             <div key={idx} className="min-h-[200px]">
                                 {dayEvents.length > 0 ? (
-                                    <div className="space-y-3 max-h-[600px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
+                                    <div className="space-y-3 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
                                         {dayEvents.map(event => (
                                             <EventCard key={event.id} event={event} />
                                         ))}

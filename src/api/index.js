@@ -14,7 +14,6 @@ api.interceptors.request.use((config) => {
 
     /** Use API Key */
     const API_KEY = process.env.REACT_APP_API_KEY;
-    console.log(API_KEY);
 
     config.headers.set('X-API-KEY', API_KEY);
 

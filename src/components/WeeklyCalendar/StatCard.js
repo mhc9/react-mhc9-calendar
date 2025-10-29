@@ -9,13 +9,13 @@ const StatCard = ({ events, today, getEventsForDay }) => {
             </div>
             <div className="bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl p-6 text-white">
                 <div className="text-3xl font-bold">
-                {events.reduce((sum, e) => sum + e.attendees, 0)}
+                    {events.reduce((sum, e) => sum + e.attendees, 0)}
                 </div>
                 <div className="text-sm opacity-90">Total Participants</div>
             </div>
             <div className="bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl p-6 text-white">
                 <div className="text-3xl font-bold">
-                {getEventsForDay(today).length}
+                    {getEventsForDay(today).length}
                 </div>
                 <div className="text-sm opacity-90">Events Today</div>
             </div>

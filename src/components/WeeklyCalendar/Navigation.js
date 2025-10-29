@@ -9,7 +9,7 @@ const Navigation = ({ weekDays, currentWeek, onCurrentWeekChange }) => {
     };
 
     return (
-        <div className="flex items-center justify-between mb-6 bg-white/10 backdrop-blur-lg rounded-2xl p-4 border border-white/20">
+        <div className="flex items-center justify-between mb-6 bg-white/10 backdrop-blur-lg rounded-2xl p-2 border border-white/20">
             <button
                 onClick={() => navigateWeek(-1)}
                 className="p-2 hover:bg-white/20 rounded-lg transition-all duration-300 hover:scale-110"

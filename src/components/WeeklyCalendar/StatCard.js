@@ -5,19 +5,19 @@ const StatCard = ({ events, today, getEventsForDay }) => {
         <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl p-6 text-white">
                 <div className="text-3xl font-bold">{events.length}</div>
-                <div className="text-sm opacity-90">Events This Week</div>
+                <div className="text-sm opacity-90">งานทั้งหมด</div>
             </div>
             <div className="bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl p-6 text-white">
                 <div className="text-3xl font-bold">
-                    {events.reduce((sum, e) => sum + e.attendees, 0)}
+                    {events.reduce((sum, e) => sum + e.people, 0)}
                 </div>
-                <div className="text-sm opacity-90">Total Participants</div>
+                <div className="text-sm opacity-90">ผู้เข้าร่วมทั้งหมด</div>
             </div>
             <div className="bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl p-6 text-white">
                 <div className="text-3xl font-bold">
                     {getEventsForDay(today).length}
                 </div>
-                <div className="text-sm opacity-90">Events Today</div>
+                <div className="text-sm opacity-90">งานวันนี้</div>
             </div>
         </div>
     )

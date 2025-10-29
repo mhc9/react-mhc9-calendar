@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Navigation from './Navigation';
 import StatCard from './StatCard';
 import Header from './Header';
-import Calendar from './Calendar';
+import Calendar from '../Calendar';
 import Dialog from '../Modal';
 import api from '../../api';
 

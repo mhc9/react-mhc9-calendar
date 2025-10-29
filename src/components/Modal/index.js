@@ -50,9 +50,9 @@ const Dialog = ({ event, setSelectedEvent }) => {
                                     <div className="text-lg font-bold text-gray-800">{event.time}</div>
                                     <div className="text-sm text-gray-600">{event.duration}</div>
                                 </div>
-                                </div>
+                            </div>
 
-                                <div className="flex items-start gap-4">
+                            <div className="flex items-start gap-4">
                                 <div className={`bg-gradient-to-br ${event.color} p-3 rounded-xl`}>
                                     <MapPin className="w-6 h-6 text-white" />
                                 </div>
@@ -60,15 +60,16 @@ const Dialog = ({ event, setSelectedEvent }) => {
                                     <div className="text-sm text-gray-500 font-semibold">Location</div>
                                     <div className="text-lg font-bold text-gray-800">{event.location}</div>
                                 </div>
-                                </div>
-
-                                <div className="flex items-start gap-4">
+                            </div>
+                        </div>
+                        <div className="grid grid-cols-1 gap-6">
+                            <div className="flex items-start gap-4 w-full border">
                                 <div className={`bg-gradient-to-br ${event.color} p-3 rounded-xl`}>
                                     <Users className="w-6 h-6 text-white" />
                                 </div>
                                 <div>
                                     <div className="text-sm text-gray-500 font-semibold">Attendees</div>
-                                    <div className="text-lg font-bold text-gray-800">{event.attendees} people</div>
+                                    <div className="text-lg font-bold text-gray-800">{event.people} ราย <span className="text-sm font-thin">({event.attendees})</span></div>
                                 </div>
                             </div>
                         </div>

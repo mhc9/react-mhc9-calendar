@@ -35,13 +35,11 @@ const WeeklyCalendar = () => {
             });
 
             const _events = _data.map(event => {
-                /** ====================== Counting attendees ====================== */
-                const attendeeAmt = res.data.reduce((acc, cur) => {
-                    const isSame = new Date(event.OTBHDate).toDateString() === new Date(cur.OTBHDate).toDateString() 
-                                        && event.OTBH === cur.OTBH 
-                                        && event.OTEmid !== cur.OTEmid;
+                const _filtered = res.data.filter(d => new Date(event.OTBHDate).toDateString() === new Date(d.OTBHDate).toDateString() && event.OTBH === d.OTBH);
 
-                    if (isSame) {
+                /** ====================== Counting attendees ====================== */
+                const attendeeAmt = _filtered.reduce((acc, cur) => {
+                    if (event.OTEmid !== cur.OTEmid) {
                         acc = acc + 1;
                     }
 
@@ -49,16 +47,7 @@ const WeeklyCalendar = () => {
                 }, 1);
 
                 /** ====================== Listing attendee's name ====================== */
-                let attendees = '';
-                res.data.forEach(d => {
-                    const isSame = new Date(event.OTBHDate).toDateString() === new Date(d.OTBHDate).toDateString() 
-                                        && event.OTBH === d.OTBH 
-                                        && event.OTEmid !== d.OTEmid;
-
-                    if (isSame) {
-                        attendees += `${event.employee?.EmName.split(' ')[0]},`;
-                    }
-                });
+                const attendees = _filtered.map(d => d.employee?.EmName.split(' ')[0]).join(', ');
 
                 /** ====================== Creating events data for calendar ====================== */
                 return {

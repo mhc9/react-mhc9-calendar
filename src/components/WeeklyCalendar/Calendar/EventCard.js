@@ -16,9 +16,9 @@ const EventCard = ({ event }) => {
                     <MapPin className="w-3 h-3 flex-shrink-0" />
                     <span className="truncate">{event.location}</span>
                 </div>
-                <div className="flex items-center gap-1">
+                <div className="flex items-start gap-1">
                     <Users className="w-3 h-3 flex-shrink-0" />
-                    <span>{event.attendees} people</span>
+                    <span>{event.people} ราย ({event.attendees})</span>
                 </div>
             </div>
         </div>

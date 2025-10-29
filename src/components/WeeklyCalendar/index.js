@@ -3,12 +3,14 @@ import Navigation from './Navigation';
 import StatCard from './StatCard';
 import Header from './Header';
 import Calendar from './Calendar';
+import Dialog from '../Modal';
 import api from '../../api';
 
 const WeeklyCalendar = () => {
     const [currentWeek, setCurrentWeek] = useState(new Date());
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [selectedEvent, setSelectedEvent] = useState(null);
 
     // Mock API fetch - Replace with your actual API endpoint
     const fetchEvents = async () => {
@@ -123,12 +125,27 @@ const WeeklyCalendar = () => {
                         <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-cyan-400"></div>
                     </div>
                 ) : (
-                    <Calendar weekDays={weekDays} today={today} getEventsForDay={getEventsForDay} />
+                    <Calendar
+                        weekDays={weekDays}
+                        today={today}
+                        getEventsForDay={getEventsForDay}
+                        onSelectedEvent={setSelectedEvent}
+                    />
                 )}
 
                 {/* Stats Footer */}
-                <StatCard events={events} today={today} getEventsForDay={getEventsForDay} />
-
+                <StatCard
+                    events={events}
+                    today={today}
+                    getEventsForDay={getEventsForDay}
+                />
+                {/* Event Detail Modal */}
+                {selectedEvent && (
+                    <Dialog 
+                        event={selectedEvent}
+                        setSelectedEvent={setSelectedEvent}
+                    />
+                )}
             </div>
         </div>
     );

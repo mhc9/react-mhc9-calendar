@@ -2,9 +2,9 @@ import React from 'react'
 import CalendarHeader from './Header';
 import EventCard from './EventCard';
 
-const Calendar = ({ weekDays, today, getEventsForDay }) => {
+const Calendar = ({ weekDays, today, getEventsForDay, onSelectedEvent }) => {
     const handleEventClick = (event) => {
-        console.log('Event clicked:', event);
+        onSelectedEvent(event);
     };
 
     return (
@@ -23,7 +23,7 @@ const Calendar = ({ weekDays, today, getEventsForDay }) => {
                                 {dayEvents.length > 0 ? (
                                     <div className="space-y-3">
                                         {dayEvents.map(event => (
-                                            <div key={event.id} onClick={handleEventClick} className="mb-2">
+                                            <div key={event.id} onClick={() => handleEventClick(event)} className="mb-2">
                                                 <EventCard event={event} />
                                             </div>
                                         ))}

@@ -68,3 +68,8 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+# Before build app
+1. comment development REACT_APP_API_URL key and uncomment production one in .env.local file
+2. set property "homepage": "https://app.mhc9dmh.com/calendar/" in package.json
+3. set prop basename="/calendar" to Router component

@@ -36,7 +36,7 @@ const WeeklyCalendar = () => {
 
             const _events = _data.map(event => {
                 /** ====================== Counting attendees ====================== */
-                const attendees = res.data.reduce((acc, cur) => {
+                const attendeeAmt = res.data.reduce((acc, cur) => {
                     const isSame = new Date(event.OTBHDate).toDateString() === new Date(cur.OTBHDate).toDateString() 
                                         && event.OTBH === cur.OTBH 
                                         && event.OTEmid !== cur.OTEmid;
@@ -48,6 +48,18 @@ const WeeklyCalendar = () => {
                     return acc;
                 }, 1);
 
+                /** ====================== Listing attendee's name ====================== */
+                let attendees = '';
+                res.data.forEach(d => {
+                    const isSame = new Date(event.OTBHDate).toDateString() === new Date(d.OTBHDate).toDateString() 
+                                        && event.OTBH === d.OTBH 
+                                        && event.OTEmid !== d.OTEmid;
+
+                    if (isSame) {
+                        attendees += `${event.employee?.EmName.split(' ')[0]},`;
+                    }
+                });
+
                 /** ====================== Creating events data for calendar ====================== */
                 return {
                     id: event.OTId,
@@ -56,7 +68,8 @@ const WeeklyCalendar = () => {
                     date: new Date(event.OTDateProject), // Ensure date is a Date object
                     time: new Date(event.OTDateGo).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
                     duration: `${event.OTDuration} min`,
-                    attendees,
+                    attendees: attendees,
+                    people: attendeeAmt,
                     color: event.OTEmid === '48' ? "from-pink-500 to-rose-500" : "from-indigo-500 to-blue-500"
                 };
             });

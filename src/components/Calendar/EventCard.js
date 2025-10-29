@@ -4,7 +4,7 @@ import { Clock, MapPin, Users } from 'lucide-react';
 const EventCard = ({ event }) => {
     return (
         <div className={`bg-gradient-to-br ${event.color} rounded-xl p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer`}>
-            <h3 className="font-semibold text-white text-xs mb-2 line-clamp-2">
+            <h3 className="text-white text-xs mb-2 line-clamp-3">
                 {event.title}
             </h3>
             <div className="space-y-1 text-xs text-white/90">

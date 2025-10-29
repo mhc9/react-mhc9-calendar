@@ -14,22 +14,50 @@ const WeeklyCalendar = () => {
     const fetchEvents = async () => {
         setLoading(true);
 
+        /** ====================== Calculating week start and end dates ====================== */
         const startDate = getWeekDays()[0].toISOString().split('T')[0];
         const endDdate = getWeekDays()[6].toISOString().split('T')[0];
 
-        const res = await api.get(`${process.env.REACT_APP_API_URL}/api/events?sdate=${startDate}&edate=${endDdate}`); // Example endpoint
+        const res = await api.get(`${process.env.REACT_APP_API_URL}/api/events?sdate=${startDate}&edate=${endDdate}`);
 
         if (res.data) {
-            const _events = res.data.map(event => ({
-                id: event.OTId,
-                title: event.OTName,
-                location: event.OTLocation,
-                date: new Date(event.OTDateProject), // Ensure date is a Date object
-                time: new Date(event.OTDateGo).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-                duration: `${event.OTDuration} min`,
-                attendees: 0,
-                color: event.OTEmid === '48' ? "from-pink-500 to-rose-500" : "from-indigo-500 to-blue-500"
-            }));
+            let _data = [];
+
+            /** ====================== Deduplicating data ====================== */
+            res.data.forEach(event => {
+                const isDuplicate = _data.some(d => new Date(d.OTBHDate).toDateString() === new Date(event.OTBHDate).toDateString() && d.OTBH === event.OTBH);
+                
+                if (!isDuplicate) {
+                    _data.push(event);
+                }
+            });
+
+            const _events = _data.map(event => {
+                /** ====================== Counting attendees ====================== */
+                const attendees = res.data.reduce((acc, cur) => {
+                    const isSame = new Date(event.OTBHDate).toDateString() === new Date(cur.OTBHDate).toDateString() 
+                                        && event.OTBH === cur.OTBH 
+                                        && event.OTEmid !== cur.OTEmid;
+
+                    if (isSame) {
+                        acc = acc + 1;
+                    }
+
+                    return acc;
+                }, 1);
+
+                /** ====================== Creating events data for calendar ====================== */
+                return {
+                    id: event.OTId,
+                    title: event.OTName,
+                    location: event.OTLocation,
+                    date: new Date(event.OTDateProject), // Ensure date is a Date object
+                    time: new Date(event.OTDateGo).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                    duration: `${event.OTDuration} min`,
+                    attendees,
+                    color: event.OTEmid === '48' ? "from-pink-500 to-rose-500" : "from-indigo-500 to-blue-500"
+                };
+            });
 
             /**
              * Defined color gradients:
@@ -104,6 +132,6 @@ const WeeklyCalendar = () => {
             </div>
         </div>
     );
-    };
+};
 
 export default WeeklyCalendar;

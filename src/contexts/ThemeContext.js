@@ -10,7 +10,7 @@ export const ThemeProvider = ({ children }) => {
     // Theme configurations
     const themes = {
         dark: {
-            bg: 'bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900',
+            bg: 'bg-gradient-to-br from-[#020817] via-[#071227] to-[#051937]',
             cardBg: 'bg-white/10',
             cardBorder: 'border-white/20',
             text: 'text-white',

@@ -1,8 +1,11 @@
 import React from 'react'
+import { useTheme } from '../../contexts/ThemeContext';
 import CalendarHeader from './Header';
 import EventCard from './EventCard';
 
 const Calendar = ({ weekDays, today, getEventsForDay, onSelectedEvent }) => {
+    const { theme, t, toggleTheme: onToogleTheme } = useTheme();
+
     const handleEventClick = (event) => {
         onSelectedEvent(event);
     };
@@ -13,7 +16,7 @@ const Calendar = ({ weekDays, today, getEventsForDay, onSelectedEvent }) => {
             <CalendarHeader weekDays={weekDays} today={today} />
 
             {/* Events Timeline */}
-            <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20">
+            <div className={`${t.cardBg} backdrop-blur-lg rounded-2xl p-6 border ${t.cardBorder} shadow-lg`}>
                 <div className="grid grid-cols-7 gap-4">
                     {weekDays.map((day, idx) => {
                         const dayEvents = getEventsForDay(day);
@@ -29,7 +32,7 @@ const Calendar = ({ weekDays, today, getEventsForDay, onSelectedEvent }) => {
                                         ))}
                                     </div>
                                 ) : (
-                                    <div className="flex items-center justify-center h-full text-center py-8 text-slate-400 text-sm">
+                                    <div className={`flex items-center justify-center h-full text-center py-8 ${t.textMuted} text-sm`}>
                                         No events
                                     </div>
                                 )}

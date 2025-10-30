@@ -126,7 +126,7 @@ const WeeklyCalendar = () => {
                 {/* Calendar Grid - Horizontal Layout */}
                 {loading ? (
                     <div className="flex items-center justify-center h-96">
-                        <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-cyan-400"></div>
+                        <div className={`animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 ${theme === 'dark' ? 'border-cyan-400' : 'border-blue-600'}`}></div>
                     </div>
                 ) : (
                     <Calendar

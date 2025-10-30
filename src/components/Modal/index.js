@@ -1,15 +1,18 @@
 import React from 'react'
 import { Calendar, Clock, MapPin, Users } from 'lucide-react';
+import { useTheme } from '../../contexts/ThemeContext';
 
 const Dialog = ({ event, setSelectedEvent }) => {
+    const { theme, t } = useTheme();
+
     return (
         <>            
             <div 
-                className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fadeIn"
+                className={`fixed inset-0 ${t.modalBg} backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fadeIn`}
                 onClick={() => setSelectedEvent(null)}
             >
                 <div 
-                    className="bg-white/95 backdrop-blur-lg rounded-3xl max-w-2xl w-full shadow-2xl transform transition-all duration-300 animate-scaleIn"
+                    className={`${t.modalCard} backdrop-blur-lg rounded-3xl max-w-2xl w-full shadow-2xl transform transition-all duration-300 animate-scaleIn`}
                     onClick={(e) => e.stopPropagation()}
                 >
                     {/* Modal Header */}
@@ -46,9 +49,9 @@ const Dialog = ({ event, setSelectedEvent }) => {
                                     <Clock className="w-6 h-6 text-white" />
                                 </div>
                                 <div>
-                                    <div className="text-sm text-gray-500 font-semibold">เวลา</div>
-                                    <div className="text-lg font-bold text-gray-800">{event.time}</div>
-                                    {/* <div className="text-sm text-gray-600">{event.duration}</div> */}
+                                    <div className={`text-sm ${t.textMuted} font-semibold`}>เวลา</div>
+                                    <div className={`text-lg font-bold ${t.text}`}>{event.time}</div>
+                                    {/* <div className={`text-sm ${t.textSecondary}`}>{event.duration}</div> */}
                                 </div>
                             </div>
 
@@ -57,8 +60,8 @@ const Dialog = ({ event, setSelectedEvent }) => {
                                     <MapPin className="w-6 h-6 text-white" />
                                 </div>
                                 <div>
-                                    <div className="text-sm text-gray-500 font-semibold">สถานที่</div>
-                                    <div className="text-sm font-bold text-gray-800">{event.location}</div>
+                                    <div className={`text-sm ${t.textMuted} font-semibold`}>สถานที่</div>
+                                    <div className={`text-lg font-bold ${t.text}`}>{event.location}</div>
                                 </div>
                             </div>
                         </div>
@@ -68,8 +71,8 @@ const Dialog = ({ event, setSelectedEvent }) => {
                                     <Users className="w-6 h-6 text-white" />
                                 </div>
                                 <div>
-                                    <div className="text-sm text-gray-500 font-semibold">ผู้เข้าร่วม</div>
-                                    <div className="text-lg font-bold text-gray-800">{event.people} ราย <span className="text-sm font-thin">({event.attendees})</span></div>
+                                    <div className={`text-sm ${t.textMuted} font-semibold`}>ผู้เข้าร่วม</div>
+                                    <div className={`text-lg font-bold ${t.text}`}>{event.people} ราย <span className="text-sm font-thin">({event.attendees})</span></div>
                                 </div>
                             </div>
                         </div>
@@ -79,7 +82,7 @@ const Dialog = ({ event, setSelectedEvent }) => {
                             <button className={`flex-1 bg-gradient-to-br ${event.color} text-white py-3 px-6 rounded-xl font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105`}>
                                 Join Event
                             </button>
-                            <button className="flex-1 bg-gray-200 text-gray-800 py-3 px-6 rounded-xl font-semibold hover:bg-gray-300 transition-all duration-300">
+                            <button className={`flex-1 ${theme === 'dark' ? 'bg-gray-200 text-gray-800 hover:bg-gray-300' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'} py-3 px-6 rounded-xl font-semibold transition-all duration-300`}>
                                 Add to Calendar
                             </button>
                         </div> */}

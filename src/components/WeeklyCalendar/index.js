@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTheme } from '../../contexts/ThemeContext';
 import Navigation from './Navigation';
 import StatCard from './StatCard';
 import Header from './Header';
@@ -11,6 +12,7 @@ const WeeklyCalendar = () => {
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
     const [selectedEvent, setSelectedEvent] = useState(null);
+    const { theme, t, toggleTheme: onToogleTheme } = useTheme();
 
     // Mock API fetch - Replace with your actual API endpoint
     const fetchEvents = async () => {
@@ -109,7 +111,7 @@ const WeeklyCalendar = () => {
     const today = new Date();
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-4 md:p-6">
+        <div className={`min-h-screen ${t.bg} p-4 md:p-6 transition-colors duration-500`}>
             <div className="mx-auto">
                 {/* Header */}
                 <Header />

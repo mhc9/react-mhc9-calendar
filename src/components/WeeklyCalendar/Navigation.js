@@ -3,7 +3,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
 
 const Navigation = ({ weekDays, currentWeek, onCurrentWeekChange }) => {
-    const { theme, t, toggleTheme: onToogleTheme } = useTheme();
+    const { t } = useTheme();
 
     const navigateWeek = (direction) => {
         const newDate = new Date(currentWeek);

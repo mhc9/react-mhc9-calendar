@@ -2,7 +2,7 @@ import React from 'react'
 import { useTheme } from '../../contexts/ThemeContext';
 
 const CalendarHeader = ({ weekDays, today }) => {
-    const { theme, t, toggleTheme: onToogleTheme } = useTheme();
+    const { t } = useTheme();
 
     return (
         <div className="grid grid-cols-7 gap-4">

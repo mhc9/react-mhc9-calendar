@@ -3,7 +3,7 @@ import { Calendar, Clock, MapPin, Users } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
 
 const Dialog = ({ event, setSelectedEvent }) => {
-    const { theme, t } = useTheme();
+    const { t } = useTheme();
 
     return (
         <>            

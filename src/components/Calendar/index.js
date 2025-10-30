@@ -4,7 +4,7 @@ import CalendarHeader from './Header';
 import EventCard from './EventCard';
 
 const Calendar = ({ weekDays, today, getEventsForDay, onSelectedEvent }) => {
-    const { theme, t, toggleTheme: onToogleTheme } = useTheme();
+    const { t } = useTheme();
 
     const handleEventClick = (event) => {
         onSelectedEvent(event);

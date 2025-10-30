@@ -1,7 +1,10 @@
 import React from 'react'
-import { Calendar, Clock, MapPin, Users, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useTheme } from '../../contexts/ThemeContext';
 
 const Navigation = ({ weekDays, currentWeek, onCurrentWeekChange }) => {
+    const { theme, t, toggleTheme: onToogleTheme } = useTheme();
+
     const navigateWeek = (direction) => {
         const newDate = new Date(currentWeek);
         newDate.setDate(newDate.getDate() + (direction * 7));
@@ -9,28 +12,28 @@ const Navigation = ({ weekDays, currentWeek, onCurrentWeekChange }) => {
     };
 
     return (
-        <div className="flex items-center justify-between mb-6 bg-white/10 backdrop-blur-lg rounded-2xl p-2 border border-white/20">
+        <div className={`flex items-center justify-between mb-6 ${t.cardBg} backdrop-blur-lg rounded-2xl p-2 border ${t.cardBorder} shadow-lg`}>
             <button
                 onClick={() => navigateWeek(-1)}
-                className="p-2 hover:bg-white/20 rounded-lg transition-all duration-300 hover:scale-110"
+                className={`p-2 ${t.hoverBg} rounded-lg transition-all duration-300 hover:scale-110`}
             >
-                <ChevronLeft className="w-6 h-6 text-white" />
+                <ChevronLeft className={`w-6 h-6 ${t.text}`} />
             </button>
             
             <div className="text-center">
-                <h2 className="text-2xl font-bold text-white">
+                <h2 className={`text-2xl font-bold ${t.text}`}>
                     {weekDays[0].toLocaleDateString('th-TH', { month: 'long', year: 'numeric' })}
                 </h2>
-                <p className="text-slate-300">
+                <p className={t.textSecondary}>
                     {weekDays[0].toLocaleDateString('th-TH', { month: 'short', day: 'numeric' })} - {weekDays[6].toLocaleDateString('th-TH', { month: 'short', day: 'numeric' })}
                 </p>
             </div>
             
             <button
                 onClick={() => navigateWeek(1)}
-                className="p-2 hover:bg-white/20 rounded-lg transition-all duration-300 hover:scale-110"
+                className={`p-2 ${t.hoverBg} rounded-lg transition-all duration-300 hover:scale-110`}
             >
-                <ChevronRight className="w-6 h-6 text-white" />
+                <ChevronRight className={`w-6 h-6 ${t.text}`} />
             </button>
         </div>
     )

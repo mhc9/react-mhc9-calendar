@@ -7,10 +7,6 @@ export const useTheme = () => React.useContext(ThemeContext);
 export const ThemeProvider = ({ children }) => {
     const [theme, setTheme] = useState('light'); // 'dark' or 'light'
 
-    const toggleTheme = () => {
-        setTheme(prev => prev === 'dark' ? 'light' : 'dark');
-    };
-
     // Theme configurations
     const themes = {
         dark: {
@@ -46,6 +42,23 @@ export const ThemeProvider = ({ children }) => {
     };
 
     const t = themes[theme];
+
+    // Optional: Store theme preference in local storage
+    useEffect(() => {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            setTheme(savedTheme);
+        }
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem('theme', theme);
+        document.documentElement.setAttribute('data-theme', theme); // Apply theme to root element
+    }, [theme]);
+
+    const toggleTheme = () => {
+        setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+    };
 
     return (
         <ThemeContext.Provider value={{ theme, toggleTheme, t }}>

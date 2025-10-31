@@ -31,12 +31,18 @@ const Dialog = ({ event, setSelectedEvent }) => {
                         <div className="flex items-center gap-2 text-white/90">
                             <Calendar className="w-5 h-5" />
                             <span className="text-base">
-                                {event?.date?.toLocaleDateString('th-TH', { 
+                                {event?.from?.toLocaleDateString('th-TH', { 
                                     weekday: 'long', 
                                     month: 'long', 
                                     day: 'numeric',
                                     year: 'numeric'
                                 })}
+                                {event?.to ? ' - ' + event?.to?.toLocaleDateString('th-TH', { 
+                                    weekday: 'long', 
+                                    month: 'long',
+                                    day: 'numeric',
+                                    year: 'numeric'
+                                }) : ''}
                             </span>
                         </div>
                     </div>

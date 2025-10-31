@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import moment from 'moment';
 import { useTheme } from '../../contexts/ThemeContext';
 import Navigation from './Navigation';
 import StatCard from './StatCard';
@@ -56,13 +57,33 @@ const WeeklyCalendar = () => {
                     id: event.OTId,
                     title: event.OTName,
                     location: event.OTLocation,
-                    date: new Date(event.OTDateProject), // Ensure date is a Date object
+                    date: new Date(event.OTDateProject), // Ensure start date is a Date object
+                    from: new Date(event.OTDateProject), // Ensure start date is a Date object
+                    to: event.OTDateProject2 && new Date(event.OTDateProject2), // Ensure end date is a Date object
                     time: new Date(event.OTDateGo).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
                     duration: `${event.OTDuration} min`,
                     attendees: attendees,
                     people: attendeeAmt,
                     color: event.OTEmid === '48' ? "from-pink-500 to-rose-500" : "from-indigo-500 to-blue-500"
                 };
+            });
+
+            // ถ้าเป็นงานที่มีหลายวันติดกัน ให้สร้าง event เพิ่มตามจำนวนวันที่ไป
+            const _tempEvents = _events.filter(e => !!e.to);
+            _tempEvents.forEach(e => {
+                const _startDate = moment(e.from);
+                const _endDate = e.to && moment(e.to);
+                const _diffDays = _endDate ? _endDate.diff(_startDate, 'days') : 0;
+
+                if (_diffDays > 0) {
+                    for (let i = 1; i <= _diffDays; i++) {
+                        const newDate = moment(_startDate).add(i, 'days').toDate();
+                        _events.push({
+                            ...e,
+                            date: newDate
+                        });
+                    }
+                }
             });
 
             /**

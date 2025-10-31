@@ -25,8 +25,8 @@ const Calendar = ({ weekDays, today, getEventsForDay, onSelectedEvent }) => {
                             <div key={idx} className="min-h-[200px]">
                                 {dayEvents.length > 0 ? (
                                     <div className="space-y-3">
-                                        {dayEvents.map(event => (
-                                            <div key={event.id} onClick={() => handleEventClick(event)} className="mb-2">
+                                        {dayEvents.map((event, index) => (
+                                            <div key={index} onClick={() => handleEventClick(event)} className="mb-2">
                                                 <EventCard event={event} />
                                             </div>
                                         ))}

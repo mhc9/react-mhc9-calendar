@@ -64,7 +64,7 @@ const WeeklyCalendar = () => {
                     duration: `${event.OTDuration} min`,
                     attendees: attendees,
                     people: attendeeAmt,
-                    color: event.OTEmid === '48' ? "from-pink-500 to-rose-500" : "from-indigo-500 to-blue-500"
+                    color: event.OTEmid === '48' ? "from-[#f59b9b] to-[#f59b9b]" : "from-[#a1c9a1] to-[#a1c9a1]"
                 };
             });
 
@@ -159,11 +159,12 @@ const WeeklyCalendar = () => {
                 )}
 
                 {/* Stats Footer */}
-                <StatCard
+                {/* <StatCard
                     events={events}
                     today={today}
                     getEventsForDay={getEventsForDay}
-                />
+                /> */}
+
                 {/* Event Detail Modal */}
                 {selectedEvent && (
                     <Dialog 

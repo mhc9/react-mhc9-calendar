@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
+import { Download } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
 import Navigation from './Navigation';
 // import StatCard from './StatCard';
@@ -91,6 +92,45 @@ const WeeklyCalendar = () => {
         }
     };
 
+    const exportToMarkdown = () => {
+        const weekDays = getWeekDays();
+        const startDateStr = weekDays[0].toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: 'numeric' });
+        const endDateStr = weekDays[6].toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: 'numeric' });
+
+        let markdownContent = `# กิจกรรมประจำสัปดาห์: ${startDateStr} - ${endDateStr}\n\n`;
+
+        weekDays.forEach(day => {
+            const dayEvents = getEventsForDay(day);
+            const dateStr = day.toLocaleDateString('th-TH', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+            
+            markdownContent += `## ${dateStr}\n`;
+
+            if (dayEvents.length === 0) {
+                markdownContent += `ไม่มีกิจกรรม\n\n`;
+            } else {
+                dayEvents.forEach(event => {
+                    markdownContent += `### ${event.title}\n`;
+                    markdownContent += `- **เวลา**: ${event.time}\n`;
+                    markdownContent += `- **สถานที่**: ${event.location || 'ไม่ระบุ'}\n`;
+                    markdownContent += `- **ผู้เข้าร่วม**: ${event.attendees} (${event.people} คน)\n`;
+                    markdownContent += `- **ระยะเวลา**: ${event.duration}\n\n`;
+                });
+            }
+            markdownContent += `---\n\n`;
+        });
+
+        // Create blob and trigger download
+        const blob = new Blob([markdownContent], { type: 'text/markdown;charset=utf-8;' });
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        link.setAttribute('href', url);
+        link.setAttribute('download', `events-${weekDays[0].toISOString().split('T')[0]}.md`);
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+
     useEffect(() => {
         fetchEvents();
     }, [currentWeek]);
@@ -124,12 +164,24 @@ const WeeklyCalendar = () => {
                 {/* Header */}
                 <Header />
 
-                {/* Week Navigator */}
-                <Navigation
-                    weekDays={weekDays}
-                    currentWeek={currentWeek}
-                    onCurrentWeekChange={setCurrentWeek}
-                />
+                {/* Week Navigator & Actions */}
+                <div className="flex flex-col md:flex-row gap-4 mb-6 items-stretch">
+                    <div className="flex-grow">
+                        <Navigation
+                            weekDays={weekDays}
+                            currentWeek={currentWeek}
+                            onCurrentWeekChange={setCurrentWeek}
+                        />
+                    </div>
+                    <button
+                        onClick={exportToMarkdown}
+                        className={`flex items-center justify-center gap-2 px-6 py-2 ${t.cardBg} backdrop-blur-lg rounded-2xl border ${t.cardBorder} ${t.text} ${t.hoverBg} transition-all duration-300 shadow-lg font-semibold`}
+                        title="Export to Markdown"
+                    >
+                        <Download className={`w-5 h-5 ${t.icon}`} />
+                        <span>Export</span>
+                    </button>
+                </div>
 
                 {/* Calendar Grid - Horizontal Layout */}
                 {loading ? (
